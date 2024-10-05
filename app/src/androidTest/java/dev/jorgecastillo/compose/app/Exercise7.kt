@@ -56,7 +56,7 @@ import org.junit.Test
  *
  * Please use the exercise7_phone.png and exercise7_tablet.png images from the screenshots directory
  * at the root of this project as a reference for this exercise. That is how phone and tablet UIs
- * are expected to look correspondingly.
+ *  * are expected to look correspondingly.
  *
  * Very recommended!! Use a Pixel C (tablet) emulator for running this test, since we need to
  * emulate both phone and tablet layouts on the same device, so we'll need enough space available
@@ -168,7 +168,19 @@ private fun AdaptativeScreen() {
     val speaker = speakers.first()
     val friends = speakers.drop(1)
 
-    // Add your code here
+    BoxWithConstraints(Modifier.fillMaxSize()) {
+        val isTablet = maxWidth >= 600.dp
+        if (isTablet) {
+            Row {
+                ProfileScreen(speaker, Modifier
+                    .width(320.dp)
+                    .fillMaxHeight())
+                FriendsScreen(friends, Modifier.weight(1f))
+            }
+        } else {
+            ProfileScreen(speaker, Modifier.fillMaxSize())
+        }
+    }
 }
 
 @Composable
